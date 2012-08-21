@@ -194,6 +194,11 @@ typedef enum {
 @property (nonatomic) BOOL dropLayersWhenPulledRight;
 
 /**
+ * Whether or not to show the drop notification when dropLayersWhenPulledRight is YES.
+ */
+@property (nonatomic) BOOL shouldShowDropNotification;
+
+/**
  * The view controller in the top layer. (read-only)
  */
 @property(nonatomic, readonly) UIViewController *topViewController;

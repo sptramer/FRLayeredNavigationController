@@ -202,11 +202,11 @@ typedef enum {
 
             if (self.dropLayersWhenPulledRight) {
                 if (self.dropNotificationView == nil) {
-                    if ([self layersInDropZone]) {
+                    if ([self layersInDropZone] && self.shouldShowDropNotification) {
                         [self showDropNotification];
                     }
                 } else {
-                    if (![self layersInDropZone]) {
+                    if (![self layersInDropZone] && self.shouldShowDropNotification) {
                         [self hideDropNotification];
                     }
                 }
@@ -846,6 +846,7 @@ typedef enum {
 @synthesize userInteractionEnabled = _userInteractionEnabled;
 @synthesize dropLayersWhenPulledRight = _dropLayersWhenPulledRight;
 @synthesize dropNotificationView = _dropNotificationView;
+@synthesize shouldShowDropNotification = _shouldShowDropNotification;
 @synthesize delegate = _delegate;
 
 @end
