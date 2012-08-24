@@ -621,27 +621,17 @@ typedef enum {
                                     CGRectGetWidth(vc.view.frame),
                                     CGRectGetHeight(vc.view.frame));
 
-    BOOL fastAnimation = NO;
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
-        screenBounds = CGRectMake(screenBounds.origin.x, screenBounds.origin.y, screenBounds.size.height, screenBounds.size.width);
-    }
-
     switch (animated) {
         case FRLayeredAnimationDirectionDown:
-            fastAnimation = (1024 - goAwayFrame.origin.y < (screenBounds.size.height / 4.0));
             goAwayFrame.origin.y = 1024;
             break;
         case FRLayeredAnimationDirectionLeft:
-            fastAnimation = (goAwayFrame.origin.x - 1024 < (screenBounds.size.width / 4.0));
             goAwayFrame.origin.x = -1024;
             break;
         case FRLayeredAnimationDirectionUp:
-            fastAnimation = (goAwayFrame.origin.y - 1024 < (screenBounds.size.height / 4.0));
             goAwayFrame.origin.y = -1024;
             break;
         case FRLayeredAnimationDirectionRight:
-            fastAnimation = (1024 - goAwayFrame.origin.x < (screenBounds.size.width / 4.0));
             goAwayFrame.origin.x = 1024;
             break;
         case FRLayeredAnimationDirectionNone:
@@ -658,7 +648,7 @@ typedef enum {
     };
 
     if (animated) {
-        [UIView animateWithDuration:(fastAnimation ? 0.2 : 0.5)
+        [UIView animateWithDuration:0.5
                               delay:0
                             options: UIViewAnimationCurveLinear
                          animations:^{
