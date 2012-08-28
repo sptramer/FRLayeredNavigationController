@@ -52,6 +52,7 @@ typedef enum {
 @property (nonatomic, readwrite, weak) UIViewController *outOfBoundsViewController;
 @property (nonatomic, readwrite, weak) UIView *firstTouchedView;
 @property (nonatomic, weak) UIView *dropNotificationView;
+@property (nonatomic, weak) UIViewController *firstTouchedController;
 
 @end
 
@@ -128,6 +129,12 @@ typedef enum {
     [self doLayout];
 }
 
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    [self doLayout];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -170,14 +177,14 @@ typedef enum {
                                       withEvent:nil];
             self.firstTouchedView = touchedView;
             for (FRLayerController *controller in [self.layeredViewControllers reverseObjectEnumerator]) {
-                if (controller.contentViewController.view == touchedView) {
-                    _firstTouchedController = controller.contentViewController;
+                if ([touchedView isDescendantOfView:controller.view]) {
+                    self.firstTouchedController = controller.contentViewController;
                     break;
                 }
             }
             
             if ([self.delegate respondsToSelector:@selector(layeredNavigationController:willMoveController:)]) {
-                [self.delegate layeredNavigationController:self willMoveController:_firstTouchedController];
+                [self.delegate layeredNavigationController:self willMoveController:self.firstTouchedController];
             }
             break;
         }
@@ -190,7 +197,7 @@ typedef enum {
 
             [self moveViewControllersXTranslation:[gestureRecognizer translationInView:self.view].x];
             if ([self.delegate respondsToSelector:@selector(layeredNavigationController:movingViewController:)]) {
-                [self.delegate layeredNavigationController:self movingViewController:_firstTouchedController];
+                [self.delegate layeredNavigationController:self movingViewController:self.firstTouchedController];
             }
             /*
             [self moveViewControllersStartIndex:startVcIdx
@@ -231,13 +238,13 @@ typedef enum {
                 [self moveToSnappingPointsWithGestureRecognizer:gestureRecognizer];
             }
                              completion:^(BOOL finished) {
-                if ([self.delegate respondsToSelector:@selector(layeredNavigationController:didMoveController:)]) {
-                    [self.delegate layeredNavigationController:self didMoveController:_firstTouchedController];
-                }
-            }];
+            if ([self.delegate respondsToSelector:@selector(layeredNavigationController:didMoveController:)]) {
+                [self.delegate layeredNavigationController:self didMoveController:self.firstTouchedController];
+            }
 
             self.firstTouchedView = nil;
-            _firstTouchedController = nil;
+            self.firstTouchedController = nil;
+            }];
 
             break;
         }
@@ -839,5 +846,6 @@ typedef enum {
 @synthesize dropNotificationView = _dropNotificationView;
 @synthesize shouldShowDropNotification = _shouldShowDropNotification;
 @synthesize delegate = _delegate;
+@synthesize firstTouchedController = _firstTouchedController;
 
 @end
