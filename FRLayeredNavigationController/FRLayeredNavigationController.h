@@ -153,13 +153,14 @@ typedef enum {
  * @param anchorViewController The UIViewController on top of which the new view controller should get pushed.
  * @param maxWidth `YES` if viewController is a content view controller and should therefore use all the remaining
  *                 screen width.
- * @param animated Set this value to YES to animate the transition. Pass NO if you are setting up a layered navigation
- *                 controller before its view is displayed.
+ * @param animated Set this value to an FRLayeredAnimationDirection to animate the transition IN FROM that direction.
+ *                 Pass FRLayeredAnimationDirectionNone if you are setting up a layered navigation controller before
+ *                 its view is displayed.
  */
 - (void)pushViewController:(UIViewController *)viewController
                  inFrontOf:(UIViewController *)anchorViewController
               maximumWidth:(BOOL)maxWidth
-                  animated:(BOOL)animated;
+                  animated:(FRLayeredAnimationDirection)animated;
 
 /**
  * Pushes a view controller onto the stack on top of anchorViewController and updates the display.
@@ -169,15 +170,16 @@ typedef enum {
  * @param anchorViewController The UIViewController on top of which the new view controller should get pushed.
  * @param maxWidth `YES` if viewController is a content view controller and should therefore use all the remaining
  *                 screen width.
- * @param animated Set this value to YES to animate the transition. Pass NO if you are setting up a layered navigation
- *                 controller before its view is displayed.
+ * @param animated Set this value to an FRLayeredAnimationDirection to animate the transition IN FROM that direction. 
+ *                 Pass FRLayeredAnimationDirectionNone if you are setting up a layered navigation controller before 
+ *                 its view is displayed.
  * @param configuration A block object you can use to control some parameters (such as the width) for the new view
  *                      controller. The block's only parameter is a newly created instance of FRLayeredNavigationItem .
  */
 - (void)pushViewController:(UIViewController *)viewController
                  inFrontOf:(UIViewController *)anchorViewController
               maximumWidth:(BOOL)maxWidth
-                  animated:(BOOL)animated
+                  animated:(FRLayeredAnimationDirection)animated
              configuration:(void (^)(FRLayeredNavigationItem *item))configuration;
 
 /**
