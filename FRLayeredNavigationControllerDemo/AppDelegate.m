@@ -56,7 +56,7 @@ didFinishLaunchingWithOptions:(__unused NSDictionary *)launchOptions
                                               item.nextItemDistance = 64; //2;
                                           }];
     self.window.rootViewController = fvc;
-    self.window.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+    self.window.backgroundColor = [UIColor systemGroupedBackgroundColor];
 #endif
     [self.window makeKeyAndVisible];
 

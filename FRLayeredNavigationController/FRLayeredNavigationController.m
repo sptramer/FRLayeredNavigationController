@@ -126,10 +126,9 @@ typedef enum {
     self.view.backgroundColor = [UIColor clearColor];
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)orientation
-{
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     FRDLOG(@"ORIENTATION, new size: %@", NSStringFromCGSize(self.view.bounds.size));
-    [super didRotateFromInterfaceOrientation:orientation];
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [self doLayout];
 }
 
@@ -145,25 +144,8 @@ typedef enum {
     [self doLayout];
 }
 
-- (void)viewWillUnload
-{
-    [self detachGestureRecognizer];
-    self.firstTouchedView = nil;
-    self.outOfBoundsViewController = nil;
-
-    [super viewWillUnload];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    self.dropNotificationView = nil;
-    NSLog(@"FRLayeredNavigationController (%@): viewDidUnload", self);
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(__unused UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 #pragma mark - UIGestureRecognizer delegate interface
@@ -547,7 +529,7 @@ typedef enum {
 
 - (CGRect)getScreenBoundsForCurrentOrientation
 {
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    UIInterfaceOrientation orientation = self.view.window.windowScene.interfaceOrientation;
     return [FRLayeredNavigationController getScreenBoundsForOrientation:orientation];
 }
 
@@ -830,7 +812,7 @@ typedef enum {
     [self addChildViewController:newVC];
     [self.view addSubview:newVC.view];
 
-    void (^doNewFrameMove)() = ^() {
+    void (^doNewFrameMove)(void) = ^() {
         CGFloat saved = [self savePlaceWanted:CGRectGetMinX(onscreenFrame)+width-overallWidth];
         newVC.view.frame = CGRectMake(CGRectGetMinX(onscreenFrame) - saved,
                                       CGRectGetMinY(onscreenFrame),

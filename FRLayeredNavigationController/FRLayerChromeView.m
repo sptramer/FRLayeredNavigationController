@@ -69,18 +69,16 @@
 
             titleLabel.backgroundColor = [UIColor clearColor];
             titleLabel.text = titleText;
-            titleLabel.textAlignment = UITextAlignmentCenter;
+            titleLabel.textAlignment = NSTextAlignmentCenter;
 
 
-            titleLabel.font = titleTextAttrs[UITextAttributeFont];
+            titleLabel.font = titleTextAttrs[NSFontAttributeName];
 
-            titleLabel.textColor = titleTextAttrs[UITextAttributeTextColor];
+            titleLabel.textColor = titleTextAttrs[NSForegroundColorAttributeName];
 
-            titleLabel.shadowColor = titleTextAttrs[UITextAttributeTextShadowColor];
-
-            if (titleTextAttrs[UITextAttributeTextShadowOffset]){
-                titleLabel.shadowOffset = [titleTextAttrs[UITextAttributeTextShadowOffset] CGSizeValue];
-            }
+            NSShadow *shadow = titleTextAttrs[NSShadowAttributeName];
+            titleLabel.shadowColor = shadow.shadowColor;
+            titleLabel.shadowOffset = shadow.shadowOffset;
 
             self.titleView = titleLabel;
         } else {

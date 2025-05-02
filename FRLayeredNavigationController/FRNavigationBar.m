@@ -34,25 +34,10 @@ static FRNavigationBar *_appearance = nil;
 
 @implementation FRNavigationBar
 
-+ (NSDictionary *)defaultTextAttributesIO6AndOlder
-{
-    return @{UITextAttributeFont: [UIFont boldSystemFontOfSize:20.5],
-             UITextAttributeTextShadowColor: [UIColor whiteColor],
-             UITextAttributeTextColor:[UIColor colorWithRed:111.0f/255.0f
-                                                      green:118.0f/255.0f
-                                                       blue:126.0f/255.0f
-                                                      alpha:1.0f]};
-}
-
-+ (NSDictionary *)defaultTextAttributesIO7AndNewer
-{
-    return @{UITextAttributeFont: [UIFont boldSystemFontOfSize:18],
-             UITextAttributeTextColor:[UIColor blackColor]};
-}
-
 + (NSDictionary *)defaultTextAttributes
 {
-    return [FRNavigationBar defaultTextAttributesIO7AndNewer];
+    return @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18],
+             NSForegroundColorAttributeName: [UIColor blackColor]};
 }
 
 + (FRNavigationBar *)appearance
@@ -69,6 +54,23 @@ static FRNavigationBar *_appearance = nil;
 
 + (FRNavigationBar *)appearanceWhenContainedIn:(__unused Class <UIAppearanceContainer>)ContainerClass,...
 {
+    return [FRNavigationBar appearance];
+}
+
++ (nonnull instancetype)appearanceForTraitCollection:(nonnull UITraitCollection *)trait { 
+    return [FRNavigationBar appearance];
+}
+
++ (nonnull instancetype)appearanceForTraitCollection:(nonnull UITraitCollection *)trait whenContainedInInstancesOfClasses:(nonnull NSArray<Class<UIAppearanceContainer>> *)containerTypes { 
+    return [FRNavigationBar appearance];
+}
+
+
++ (nonnull instancetype)appearanceWhenContainedInInstancesOfClasses:(nonnull NSArray<Class<UIAppearanceContainer>> *)containerTypes { 
+    return [FRNavigationBar appearance];
+}
+
++ (nonnull instancetype)appearanceForTraitCollection:(nonnull UITraitCollection *)trait whenContainedIn:(nullable Class<UIAppearanceContainer>)ContainerClass, ... {
     return [FRNavigationBar appearance];
 }
 

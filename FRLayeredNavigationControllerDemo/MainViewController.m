@@ -51,7 +51,7 @@
     lv.clipsToBounds = YES;
     lv.frame = CGRectMake(20, 100, 900, 600);
     [v addSubview:lv];
-    lv.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+    lv.backgroundColor = [UIColor systemGroupedBackgroundColor];
     v.backgroundColor = [UIColor orangeColor];
     UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [b setTitle:@"Change Size" forState:UIControlStateNormal];
@@ -71,15 +71,8 @@
 	// Do any additional setup after loading the view.
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(__unused UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 // Layered controller delegate

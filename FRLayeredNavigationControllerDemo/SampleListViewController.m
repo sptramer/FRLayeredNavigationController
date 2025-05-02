@@ -59,13 +59,6 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
 - (void)hooray
 {
     NSLog(@"hooray");
@@ -78,20 +71,17 @@
                                                     style:UIBarButtonItemStylePlain
                                                     target:self
                                                     action:@selector(hooray)];
-    self.layeredNavigationItem.leftBarButtonItem.style = UIBarButtonItemStyleBordered;
     self.layeredNavigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                                      initWithImage:[UIImage imageNamed:@"back.png"]
                                                      style:UIBarButtonItemStylePlain
                                                      target:self
                                                      action:@selector(hooray)];
-    self.layeredNavigationItem.rightBarButtonItem.style = UIBarButtonItemStyleBordered;
 
     [super viewWillAppear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(__unused UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 #pragma mark - Table view data source
@@ -212,7 +202,6 @@
                                                    UISegmentedControl *segControl = [[UISegmentedControl alloc]
                                                                                      initWithItems:@[@"foo", @"bar",
                                                                                                      @"buz"]];
-                                                   segControl.segmentedControlStyle = UISegmentedControlStyleBar;
                                                    segControl.selectedSegmentIndex = 0;
 
                                                    [segControl addTarget:svc

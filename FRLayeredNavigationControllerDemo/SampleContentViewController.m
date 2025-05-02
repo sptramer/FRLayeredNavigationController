@@ -92,13 +92,11 @@
                                                     style:UIBarButtonItemStylePlain
                                                     target:self
                                                     action:@selector(hooray)];
-    self.layeredNavigationItem.leftBarButtonItem.style = UIBarButtonItemStyleBordered;
     self.layeredNavigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                                      initWithImage:[UIImage imageNamed:@"back.png"]
                                                      style:UIBarButtonItemStylePlain
                                                      target:self
                                                      action:@selector(hooray)];
-    self.layeredNavigationItem.rightBarButtonItem.style = UIBarButtonItemStyleBordered;
 
     [super viewWillAppear:animated];
 }
@@ -115,18 +113,8 @@
 	// Do any additional setup after loading the view.
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-
-    self.scrollView.delegate = nil;
-    self.scrollView = nil;
-    self.imageView = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(__unused UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (void)indexDidChangeForSegmentedControl:(__unused UISegmentedControl *)sc

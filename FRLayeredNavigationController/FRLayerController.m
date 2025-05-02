@@ -187,19 +187,8 @@
     [self doViewLayout];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    FRDLOG(@"FRLayerController (%@): viewDidUnload", self);
-
-    self.borderView = nil;
-    self.chromeView = nil;
-    self.contentView = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(__unused UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (void)willMoveToParentViewController:(UIViewController *)parent
